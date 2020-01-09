@@ -1,0 +1,24 @@
+name: Ping
+
+on: repository_dispatch
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, ubuntu-16.04, macos-latest]
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
+
+    # http://manpages.ubuntu.com/manpages/trusty/man8/ping.8.html
+    steps:
+    - name: Ping (*nix)
+      if: runner.os == 'macOS' || runner.os == 'Linux'
+      run: ping -i 1 -n 60 www.google.com
+
+    # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/ping#parameters
+    - name: Ping (Windows)
+      if: runner.os == 'Windows'
+      run: ping /w 1 /n 60 www.google.com
