@@ -16,9 +16,9 @@ jobs:
     steps:
     - name: Ping (*nix)
       if: runner.os == 'macOS' || runner.os == 'Linux'
-      run: ping -i 1 -n 60 www.google.com
+      run: ping -i 1 -c 600 www.google.com
 
     # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/ping#parameters
     - name: Ping (Windows)
       if: runner.os == 'Windows'
-      run: ping /w 1 /n 60 www.google.com
+      run: ping /w 1 /n 600 www.google.com
